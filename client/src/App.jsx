@@ -1,4 +1,5 @@
 import Header from "./components/Header/Header";
+import Main from "./components/Main/Main";
 import { theme } from "./theme";
 import { ThemeProvider, Stack } from "@mui/material";
 function App() {
@@ -8,6 +9,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Stack>
           <Header />
+          <Main/>
         </Stack>
       </ThemeProvider>
     </>

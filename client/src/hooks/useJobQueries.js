@@ -1,6 +1,6 @@
 import { getAllJobs, getJob, createJob, deleteJob } from "../api/JobAPI";
 
-import { useQuery, useMutate, useQueryClient } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 
 // Hook to query all jobs by useQuery 
 const useGetAllJobs = (onSuccess, onError) => {
@@ -19,10 +19,10 @@ const useGetJob = (onSuccess, onError, id) => {
   });
 };
 
-// Hook to create job by useMutate 
+// Hook to create job by useMutation 
 const useCreateJob = () => {
   const queryClient = useQueryClient();
-  return useMutate(createJob, {
+  return useMutation(createJob, {
     onSuccess: (data) => {
       queryClient.setQueriesData(["jobs"], (oldData) => {
         return {
@@ -34,10 +34,10 @@ const useCreateJob = () => {
   });
 };
 
-// Hook to delete job by useMutate
+// Hook to delete job by useMutation
 const useDeleteJob = () => {
     const queryClient = useQueryClient();
-    return useMutate(deleteJob,{
+    return useMutation(deleteJob,{
         onSuccess: () => {
             queryClient.invalidateQueries(['jobs']);
         }
