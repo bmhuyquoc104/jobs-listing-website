@@ -7,7 +7,7 @@ function App() {
     <>
       {/*Wrap component by theme */}
       <ThemeProvider theme={theme}>
-        <Stack>
+        <Stack alignItems = "center" sx = {{bgcolor:"neutral.main",minHeight:"100vh"}}>
           <Header />
           <Main/>
         </Stack>
