@@ -1,12 +1,17 @@
-import { useState } from 'react'
-
+import Header from "./components/Header/Header";
+import { theme } from "./theme";
+import { ThemeProvider, Stack } from "@mui/material";
 function App() {
-
   return (
-    <div className="App">
-      <h1>Hello Huy</h1>
-    </div>
-  )
+    <>
+      {/*Wrap component by theme */}
+      <ThemeProvider theme={theme}>
+        <Stack>
+          <Header />
+        </Stack>
+      </ThemeProvider>
+    </>
+  );
 }
 
-export default App
+export default App;
