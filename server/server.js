@@ -4,7 +4,7 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
-
+const JobRoute = require('./routes/Job');
 // Add library to app
 app.use(cors());
 app.use(express.json());
@@ -24,3 +24,6 @@ app.listen(PORT,HOSTNAME,() => {
 app.get('/',(req,res) => {
     res.status(200).send('This is backend')
 });
+
+// Render the route for jobs
+app.use('/jobs',JobRoute);
