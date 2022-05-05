@@ -6,9 +6,7 @@ export const theme = createTheme({
         primary:{
             main:"hsl(180, 29%, 50%)"
         },
-        neutral:{
-            main:"hsl(180, 52%, 96%)"
-        },
+
         backgroundNeutral:{
             main:"hsl(180, 52%, 96%)"
         },
@@ -26,4 +24,11 @@ export const theme = createTheme({
         fontSize:15,
         fontFamily:['League Spartan', 'sans-serif'].join(","),
     },
+    breakpoints: {
+        values:{
+            xs:0,
+            sm:650,
+            md:790,
+        }
+    }
 })
