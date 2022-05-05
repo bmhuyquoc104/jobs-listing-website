@@ -7,6 +7,7 @@ import {
   Typography,
   Chip,
   Button,
+  Divider,
   Avatar,
   ListItemAvatar,
 } from "@mui/material";
@@ -31,14 +32,15 @@ const Main = () => {
     return <h1>Error:{error.message}</h1>;
   }
   return (
-    <Stack spacing={2} width={{md:"80%",sm:"100%"}}>
+    <Stack spacing={{xs:3.5,sm:2}} width={{ xs: "85%", md: "80%", sm: "100%" }}>
       {jobs.data?.map((job) => (
         // Use styled stack to render the first 2 items
         <StyledStack key={job._id}>
           <Stack
-            direction="row"
-            alignItems="center"
+            direction={{ xs: "column", sm: "row" }}
+            alignItems={{ xs: "flexStart", sm: "center" }}
             justifyContent="space-between"
+            spacing={2}
             sx={{
               backgroundColor: "#ffffff",
               borderRadius: "0.2em",
@@ -47,8 +49,12 @@ const Main = () => {
             }}
           >
             {/* Render avatar and company info */}
-            <Stack direction="row" alignItems="center">
-              <ListItemAvatar>
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              alignItems={{ xs: "flexStart", sm: "center" }}
+              sx={{ position: { xs: "relative", sm: "none" } }}
+            >
+              <ListItemAvatar sx={{ top: {xs:'-2.5em',sm:"0"},  position: { xs: "relative", sm: "none" } }}>
                 <Avatar alt="job description" src={job.logo}></Avatar>
               </ListItemAvatar>
               <Stack>
@@ -147,9 +153,16 @@ const Main = () => {
                 </Stack>
               </Stack>
             </Stack>
+            <Divider sx={{ display: { xs: "flex", sm: "none" } }}></Divider>
 
             {/* Render list of skill and level */}
-            <Stack spacing={1} direction="row">
+            <Stack
+              sx={{
+                flexWrap: { xs: "wrap", sm: "none" },
+                gap: { xs: "1em", sm: "0.5em" },
+              }}
+              direction="row"
+            >
               <Button
                 size="small"
                 sx={{
