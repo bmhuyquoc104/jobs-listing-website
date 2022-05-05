@@ -32,7 +32,10 @@ const Main = () => {
     return <h1>Error:{error.message}</h1>;
   }
   return (
-    <Stack spacing={{xs:3.5,sm:2}} width={{ xs: "85%", md: "80%", sm: "100%" }}>
+    <Stack
+      spacing={{ xs: 3.5, sm: 2 }}
+      width={{ xs: "85%", md: "80%", sm: "100%" }}
+    >
       {jobs.data?.map((job) => (
         // Use styled stack to render the first 2 items
         <StyledStack key={job._id}>
@@ -54,7 +57,12 @@ const Main = () => {
               alignItems={{ xs: "flexStart", sm: "center" }}
               sx={{ position: { xs: "relative", sm: "none" } }}
             >
-              <ListItemAvatar sx={{ top: {xs:'-2.5em',sm:"0"},  position: { xs: "relative", sm: "none" } }}>
+              <ListItemAvatar
+                sx={{
+                  top: { xs: "-2.5em", sm: "0" },
+                  position: { xs: "relative", sm: "none" },
+                }}
+              >
                 <Avatar alt="job description" src={job.logo}></Avatar>
               </ListItemAvatar>
               <Stack>
@@ -103,7 +111,13 @@ const Main = () => {
                     )}
                   </Stack>
                 </Stack>
-                <Typography component="h2" variant="subtitle2">
+                <Typography
+                  sx={{
+                    ":hover": { color: "primary.main", cursor: "pointer" },
+                  }}
+                  component="h2"
+                  variant="subtitle2"
+                >
                   {job.position}
                 </Typography>
                 <Stack direction="row" spacing={1.5}>
@@ -167,6 +181,11 @@ const Main = () => {
                 size="small"
                 sx={{
                   color: "#72a19e",
+                  ":hover": {
+                    color: "white",
+                    cursor: "pointer",
+                    backgroundColor: "#72a19e",
+                  },
                   backgroundColor: "#eff6f6",
                   textTransform: "capitalize",
                 }}
@@ -177,6 +196,11 @@ const Main = () => {
                 sx={{
                   color: "#72a19e",
                   backgroundColor: "#eff6f6",
+                  ":hover": {
+                    color: "white",
+                    cursor: "pointer",
+                    backgroundColor: "#72a19e",
+                  },
                   textTransform: "capitalize",
                 }}
                 size="small"
@@ -188,6 +212,11 @@ const Main = () => {
                   sx={{
                     color: "#72a19e",
                     backgroundColor: "#eff6f6",
+                    ":hover": {
+                      color: "white",
+                      cursor: "pointer",
+                      backgroundColor: "#72a19e",
+                    },
                     textTransform: "capitalize",
                   }}
                   size="small"
@@ -201,6 +230,11 @@ const Main = () => {
                   sx={{
                     color: "#72a19e",
                     backgroundColor: "#eff6f6",
+                    ":hover": {
+                      color: "white",
+                      cursor: "pointer",
+                      backgroundColor: "#72a19e",
+                    },
                     textTransform: "capitalize",
                   }}
                   size="small"
