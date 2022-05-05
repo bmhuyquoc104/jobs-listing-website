@@ -19,7 +19,7 @@ const JobModel = new mongoose.Schema({
         type:String,
     },
     contract:String,
-    localhost:String,
+    location:String,
     languages:[String],
     tools:[String],
 
