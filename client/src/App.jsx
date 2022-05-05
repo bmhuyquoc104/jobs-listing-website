@@ -7,9 +7,13 @@ function App() {
     <>
       {/*Wrap component by theme */}
       <ThemeProvider theme={theme}>
-        <Stack alignItems = "center" sx = {{bgcolor:"neutral.main",minHeight:"100vh"}}>
+        <Stack
+          spacing={5}
+          alignItems="center"
+          sx={{ bgcolor: "#f0fafa", minHeight: "100vh", paddingBottom: "5em" }}
+        >
           <Header />
-          <Main/>
+          <Main />
         </Stack>
       </ThemeProvider>
     </>
