@@ -17,7 +17,7 @@ export const theme = createTheme({
             main:"hsl(180, 8%, 52%)"
         },
         neutral3:{
-            main:"hsl(180, 14%, 20%)"
+            main:"red"
         }
     },
     typography:{
