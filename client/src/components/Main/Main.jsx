@@ -1,6 +1,7 @@
 import React from "react";
 import { useGetAllJobs } from "../../hooks/useJobQueries";
-import Logo from "../../assets/images/photosnap.svg";
+import {useDispatch} from 'react-redux'
+import {addJob} from '../../features/job'
 import {
   Stack,
   styled,
@@ -21,6 +22,10 @@ const StyledStack = styled(Stack)`
 `;
 
 const Main = () => {
+
+  // Assign dispatch function from redux toolkit
+  const dispatch = useDispatch();
+
   const { data: jobs, isLoading, isError, error } = useGetAllJobs();
   // Render loading screen if the data is loading
   if (isLoading) {
@@ -189,6 +194,7 @@ const Main = () => {
                   backgroundColor: "#eff6f6",
                   textTransform: "capitalize",
                 }}
+                onClick = {() => dispatch(addJob(job.role))}
               >
                 {job.role}
               </Button>
@@ -204,6 +210,7 @@ const Main = () => {
                   textTransform: "capitalize",
                 }}
                 size="small"
+                onClick = {() => dispatch(addJob(job.level))}
               >
                 {job.level}
               </Button>
@@ -217,10 +224,17 @@ const Main = () => {
                       cursor: "pointer",
                       backgroundColor: "#72a19e",
                     },
+                    ":visited":{
+                      color: "white",
+                      cursor: "pointer",
+                      backgroundColor: "#72a19e",
+                    },
                     textTransform: "capitalize",
                   }}
                   size="small"
                   key={index}
+                  onClick = {() => dispatch(addJob(tool))}
+
                 >
                   {tool}
                 </Button>
@@ -238,6 +252,8 @@ const Main = () => {
                     textTransform: "capitalize",
                   }}
                   size="small"
+                  onClick = {() => dispatch(addJob(language))}
+
                   key={index}
                 >
                   {language}

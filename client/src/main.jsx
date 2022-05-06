@@ -5,19 +5,22 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import jobsReducer from "./features/job";
 const queryClient = new QueryClient();
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    jobs: jobsReducer,
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
-    <Provider store={store}>
-      <React.StrictMode>
+    <React.StrictMode>
+      <Provider store={store}>
         <App />
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
-      </React.StrictMode>
-    </Provider>
+      </Provider>
+    </React.StrictMode>
   </QueryClientProvider>
 );
