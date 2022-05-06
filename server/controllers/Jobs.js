@@ -51,34 +51,14 @@ const findByLevelRole = async (req, res) => {
     console.log("role:" +params.role);
     console.log("level: " + params.level);
     console.log("languages: " + params.languages);
-    // if (params == null) {
-    //   res.status(404).send("Please enter a parameter");
-    // }
+    if (params == null) {
+      res.status(404).send("Please enter a parameter");
+    }
 
     const jobs = await JobModel.findByLevelRoleToolLanguage(params.level,params.role,params.tools,params.languages);
     console.log(jobs.length);
     res.status(200).send(jobs);
-    // if (params.role == null) {
-    //   const jobs = await JobModel.find().byLevel(params.level);
-    //   console.log(jobs.length);
-    //   res.status(200).send(jobs);
-    // }
-    // if (params.level == null) {
-    //   const jobs = await JobModel.find().byRole(params.role);
-    //   console.log(jobs.length);
-    //   res.status(200).send(jobs);
-    // }
-    // if (params.tools != null) {
-    //   const jobs = await JobModel.find().byTools(params.tools);
-    //   console.log(jobs.length);
-    //   res.status(200).send(jobs);
-    // }
-
-    // if (params.languages != null) {
-    //     const jobs = await JobModel.find().byLanguages(params.languages);
-    //     console.log(jobs.length);
-    //     res.status(200).send(jobs);
-    //   }
+   
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
