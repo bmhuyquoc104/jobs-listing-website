@@ -10,7 +10,7 @@ const jobsSlice = createSlice({
         .filter((v, i, a) => a.indexOf(v) === i);
     },
     deleteJob: (state, action) => {
-      return state.filter((element, index) => {
+      return state.filter((_e, index) => {
         return index !== action.payload;
       });
     },
