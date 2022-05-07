@@ -13,7 +13,7 @@ const {
 
 // Routes for jobs
 router.route("/").get(getAllJobs).post(addJob);
-router.route("/query").get(findByLevelRole);
+router.route("/query").post(findByLevelRole);
 router.route("/:id").get(getSingleJob,getJob).delete(getSingleJob,deleteJob);
 
 module.exports = router;

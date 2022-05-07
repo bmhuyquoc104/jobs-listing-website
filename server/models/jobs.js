@@ -26,6 +26,7 @@ const JobModel = new mongoose.Schema({
 });
 
 const byTools = (inputTools) => {
+  console.log(inputTools.length);
   return inputTools.length > 1
     ? { $all: inputTools }
     : inputTools.length == 0
@@ -34,6 +35,8 @@ const byTools = (inputTools) => {
 };
 
 const byLanguages = (inputLanguages) => {
+  console.log(inputLanguages.length);
+
   return inputLanguages.length > 1
     ? { $all: inputLanguages }
     : { $in: inputLanguages };
@@ -46,16 +49,9 @@ JobModel.statics.findByLevelRoleToolLanguage = function (
   tools,
   languages
 ) {
-  console.log("Role: " + role);
-  console.log("level: " + level);
-  console.log("tool: " + tools);
-  console.log("language: " + languages);
 
-  // if (role != "" && level != ""){
-  //   return this.find({ $and:[ {level: `${level}` },{ role: `${role}`} ]});
-  // }
-  // return this.find({ $or:[ {level: `${level}` },{ role: `${role}`} ]});
 
+  // Case 1
   if (role != "" && languages != "" && level != "") {
     return this.find({
       $and: [
@@ -66,6 +62,69 @@ JobModel.statics.findByLevelRoleToolLanguage = function (
       ],
     });
   }
+
+  // Case 2
+  if (role == "" && languages == "" && level == "") {
+    return this.find({
+      $and: [{ tools: byTools(tools) }],
+    });
+  }
+
+  // Case 3
+  if (role == "" && languages != "" && level != "") {
+    return this.find({
+      $and: [
+        { tools: byTools(tools) },
+        { languages: byLanguages(languages) },
+        { level: `${level}` },
+      ],
+    });
+  }
+
+  // Case 4
+  if (role == "" && languages == "" && level != "") {
+    return this.find({
+      $or: [{ tools: byTools(tools) }, { level: `${level}` }],
+    });
+  }
+
+  // Case 5
+  if (role != "" && languages == "" && level == "") {
+    return this.find({
+      $or: [{ tools: byTools(tools) }, { role: `${role}` }],
+    });
+  }
+
+  // Case 6
+  if (role != "" && languages == "" && level != "") {
+    return this.find({
+      $and: [
+        { tools: byTools(tools) },
+        { role: `${role}` },
+        { level: `${level}` },
+      ],
+    });
+  }
+
+  // Case 7
+  if (role != "" && languages != "" && level == "") {
+    return this.find({
+      $and: [
+        { tools: byTools(tools) },
+        { role: `${role}` },
+        { languages: byLanguages(languages) },
+      ],
+    });
+  }
+
+  // Case 8
+  if (role == "" && languages != "" && level == "") {
+    return this.find({
+      $or: [{ tools: byTools(tools) }, { languages: byLanguages(languages) }],
+    });
+  }
+
+  // Case 9
   return this.find({
     $or: [
       { tools: byTools(tools) },

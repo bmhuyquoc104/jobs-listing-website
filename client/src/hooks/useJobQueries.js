@@ -1,8 +1,14 @@
-import { getAllJobs, getJob, createJob, deleteJob } from "../api/JobAPI";
+import {
+  getAllJobs,
+  getJob,
+  createJob,
+  deleteJob,
+  filterJob,
+} from "../api/JobAPI";
 
 import { useQuery, useMutation, useQueryClient } from "react-query";
 
-// Hook to query all jobs by useQuery 
+// Hook to query all jobs by useQuery
 const useGetAllJobs = (onSuccess, onError) => {
   return useQuery(["jobs"], getAllJobs, {
     onSuccess: onSuccess,
@@ -10,7 +16,7 @@ const useGetAllJobs = (onSuccess, onError) => {
   });
 };
 
-// Hook to query job by useQuery 
+// Hook to query job by useQuery
 const useGetJob = (onSuccess, onError, id) => {
   return useQuery(["job", id], () => getJob, {
     onSuccess,
@@ -19,16 +25,16 @@ const useGetJob = (onSuccess, onError, id) => {
   });
 };
 
-// Hook to create job by useMutation 
+// Hook to create job by useMutation
 const useCreateJob = () => {
   const queryClient = useQueryClient();
   return useMutation(createJob, {
     onSuccess: (data) => {
       queryClient.setQueriesData(["jobs"], (oldData) => {
         return {
-            ...oldData,
-            data: [...oldData.data,data.data]
-        }
+          ...oldData,
+          data: [...oldData.data, data.data],
+        };
       });
     },
   });
@@ -36,13 +42,17 @@ const useCreateJob = () => {
 
 // Hook to delete job by useMutation
 const useDeleteJob = () => {
-    const queryClient = useQueryClient();
-    return useMutation(deleteJob,{
-        onSuccess: () => {
-            queryClient.invalidateQueries(['jobs']);
-        }
-    });
-}
+  const queryClient = useQueryClient();
+  return useMutation(deleteJob, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["jobs"]);
+    },
+  });
+};
+
+// Hook to filter by use Query
+
+
 
 //export to use in other files
-export {useDeleteJob,useCreateJob,useGetAllJobs,useGetJob};
+export { useDeleteJob, useCreateJob, useGetAllJobs, useGetJob};
