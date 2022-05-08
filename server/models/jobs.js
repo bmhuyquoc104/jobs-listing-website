@@ -64,10 +64,9 @@ JobModel.statics.findByLevelRoleToolLanguage = function (
   }
 
   // Case 2
-  if (role == "" && languages == "" && level == "") {
-    return this.find({
-      $and: [{ tools: byTools(tools) }],
-    });
+  if (role == "" && languages == "" && level == "" && tools == "" ) {
+    console.log("huy")
+    return this.find();
   }
 
   // Case 3

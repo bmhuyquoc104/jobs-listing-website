@@ -1,9 +1,9 @@
-import React from "react";
+import { useState } from "react";
 import { useGetAllJobs } from "../../hooks/useJobQueries";
 import { useDispatch } from "react-redux";
 import { addJob } from "../../features/job";
 import { filterJob } from "../../api/jobAPI";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import {
   Stack,
   styled,
@@ -27,6 +27,18 @@ const Main = () => {
   // Assign dispatch function from redux toolkit
   const dispatch = useDispatch();
 
+  const [conditions, setConditions] = useState({
+    level: "",
+    role: "",
+    languages: [],
+    tools: [],
+  });
+
+  const queryClient = useQueryClient();
+  queryClient.removeQueries('jobs', { inactive: true })
+
+  console.log("conditions:" + conditions);
+
   // const { data: jobs, isLoading, isError, error } = useGetAllJobs();
   // // Render loading screen if the data is loading
 
@@ -38,20 +50,19 @@ const Main = () => {
   //   return <h1>Error:{error.message}</h1>;
   // }
 
-  const conditions = {
-    role: "Frontend",
-    level: "Junior",
-    languages: ["JavaScript"],
-    tools: ["React", "Sass"],
-  };
+  // const conditions = {
+  //   role: "Frontend",
+  //   level: "Junior",
+  //   languages: ["JavaScript"],
+  //   tools: ["React", "Sass"],
+  // };
 
   const {
     data: jobs,
     isLoading,
+    refetch,
     isError,
-  } = useQuery(["jobs"], () => filterJob(conditions));
-
-
+  } = useQuery(["jobs", conditions], () => filterJob(conditions));
 
   if (isLoading) {
     return <h1>Loading ...</h1>;
@@ -229,7 +240,11 @@ const Main = () => {
                   backgroundColor: "#eff6f6",
                   textTransform: "capitalize",
                 }}
-                onClick={() => dispatch(addJob(job.role))}
+                onClick={async () => {
+                  dispatch(addJob(job.role));
+                  setConditions({ ...conditions, role: `${job.role}` });
+                  refetch();
+                }}
               >
                 {job.role}
               </Button>
@@ -245,7 +260,11 @@ const Main = () => {
                   textTransform: "capitalize",
                 }}
                 size="small"
-                onClick={() => dispatch(addJob(job.level))}
+                onClick={() => {
+                  dispatch(addJob(job.level));
+                  setConditions({ ...conditions, level: `${job.level}` });
+                  refetch();
+                }}
               >
                 {job.level}
               </Button>
@@ -268,7 +287,14 @@ const Main = () => {
                   }}
                   size="small"
                   key={index}
-                  onClick={() => dispatch(addJob(tool))}
+                  onClick={() => {
+                    dispatch(addJob(tool));
+                    setConditions({
+                      ...conditions,
+                      tools: conditions.tools.concat(tool),
+                    });
+                    refetch();
+                  }}
                 >
                   {tool}
                 </Button>
@@ -286,7 +312,14 @@ const Main = () => {
                     textTransform: "capitalize",
                   }}
                   size="small"
-                  onClick={() => dispatch(addJob(language))}
+                  onClick={() => {
+                    dispatch(addJob(language));
+                    setConditions({
+                      ...conditions,
+                      languages: conditions.languages.concat(language),
+                    });
+                    refetch();
+                  }}
                   key={index}
                 >
                   {language}
