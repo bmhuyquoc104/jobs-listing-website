@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { Stack, Chip, Button } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteJob, clearJob } from "../../features/job";
 import {
   removeAllConditions,
   removeLevel,
@@ -11,16 +9,18 @@ import {
   removeTools,
 } from "../../features/conditions";
 const FilterBar = () => {
-  const jobs = useSelector((state) => state.jobs);
   const conditions = useSelector((state) => state.conditions);
-  console.log(jobs);
-  console.log(conditions);
+
+  //  Use to load function in the reducer
   const dispatch = useDispatch();
 
   return (
     <>
       {/* If there are any items in filter arr -> display , else -> display none */}
-      {jobs.length > 0 ? (
+      {conditions.level != "" ||
+      conditions.role != "" ||
+      conditions.languages != "" ||
+      conditions.tools != "" ? (
         <Stack
           width={{ xs: "85%", sm: "100%", md: "80%" }}
           alignItems="center"
@@ -45,32 +45,7 @@ const FilterBar = () => {
               gap: { xs: "1em", sm: "0.5em" },
             }}
           >
-            {/* {jobs.map((job, index) => (
-              <Chip
-                key={index}
-                label={job}
-                sx={{
-                  color: "#72a19e",
-                  backgroundColor: "#eff6f6",
-                  fontSize: "0.5rem",
-                  height: "20px",
-                  borderRadius: "5px",
-                  padding: "0",
-                }}
-                onDelete={() => dispatch(deleteJob(index))}
-                deleteIcon={
-                  <ClearIcon
-                    sx={{
-                      backgroundColor: "#72a19e",
-                      margin: "0 !important",
-                      color: "white !important",
-                      ":hover": { backgroundColor: "#000000" },
-                    }}
-                  />
-                }
-                size="medium"
-              ></Chip>
-            ))} */}
+            {/* Check if the level is blank or not to display proper layout */}
             {conditions.level != "" ? (
               <Chip
                 label={conditions.level}
@@ -98,6 +73,8 @@ const FilterBar = () => {
             ) : (
               <></>
             )}
+
+            {/* Check if the role is blank or not to display proper layout */}
             {conditions.role != "" ? (
               <Chip
                 label={conditions.role}
@@ -125,6 +102,8 @@ const FilterBar = () => {
             ) : (
               <></>
             )}
+
+            {/* Check if the language is blank or not to display proper layout*/}
             {conditions.languages != "" ? (
               <>
                 {conditions.languages.map((language, i) => (
@@ -157,6 +136,7 @@ const FilterBar = () => {
             ) : (
               <></>
             )}
+            {/* Check if the tool is blank or not to display proper layout*/}
             {conditions.tools != "" ? (
               <>
                 {conditions.tools.map((tool, index) => (
@@ -190,6 +170,7 @@ const FilterBar = () => {
               <></>
             )}
           </Stack>
+          {/* Button clear to remove all conditions */}
           <Stack>
             <Button
               onClick={() => dispatch(removeAllConditions())}

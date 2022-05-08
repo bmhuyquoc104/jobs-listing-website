@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Default value for the state
 const initialValue = {
   level: "",
   languages: [],
@@ -7,9 +8,11 @@ const initialValue = {
   role: "",
 };
 
+// Slice function for conditions
 const conditionSlice = createSlice({
   name: "conditions",
   initialState: initialValue,
+    // Reducer functions for this slice   
   reducers: {
     removeAllConditions: (state) => {
       return initialValue;
@@ -50,7 +53,6 @@ const conditionSlice = createSlice({
         };
       }
     },
-
     removeTools: (state, action) => {
       if (state.tools.length > 1) {
         return {
@@ -73,6 +75,7 @@ const conditionSlice = createSlice({
   },
 });
 
+// Export default reducer and const reducer functions
 export default conditionSlice.reducer;
 export const {
   addRole,

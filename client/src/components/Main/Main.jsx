@@ -30,45 +30,23 @@ const Main = () => {
   // Assign dispatch function from redux toolkit
   const dispatch = useDispatch();
   
+  //  Use the value of conditions object in condition reducer
   const conditions = useSelector(state => state.conditions);
 
-  // const [conditions, setConditions] = useState({
-  //   level: "",
-  //   role: "",
-  //   languages: [],
-  //   tools: [],
-  // });
-
+  // Use queryClient to work with queries 
   const queryClient = useQueryClient();
   queryClient.removeQueries('jobs', { inactive: true })
 
-  console.log("conditions:" + conditions);
-
-  // const { data: jobs, isLoading, isError, error } = useGetAllJobs();
-  // // Render loading screen if the data is loading
-
-  // if (isLoading) {
-  //   return <h1>Loading ...</h1>;
-  // }
-  // // Render error screen if there are errors
-  // if (isError) {
-  //   return <h1>Error:{error.message}</h1>;
-  // }
-
-  // const conditions = {
-  //   role: "Frontend",
-  //   level: "Junior",
-  //   languages: ["JavaScript"],
-  //   tools: ["React", "Sass"],
-  // };
-
+  // Get several props from useQuery
+  // data for data, refetch to reload the query, isLoading to ensure the data is arrive before loading, isError to check if there are any errors
   const {
     data: jobs,
     isLoading,
     refetch,
     isError,
-  } = useQuery(["jobs", conditions], () => filterJob(conditions));
+  } = useQuery(["jobs", conditions], () => filterJob(conditions), {keepPreviousData:true});
 
+  // Display if the data is not arrived
   if (isLoading) {
     return <h1>Loading ...</h1>;
   }
@@ -77,7 +55,6 @@ const Main = () => {
     return <h1>Error:{error.message}</h1>;
   }
 
-  console.log(jobs.data);
 
   const onError = (err) => {
     console.log(err);
@@ -92,6 +69,7 @@ const Main = () => {
       spacing={{ xs: 3.5, sm: 2 }}
       width={{ xs: "85%", md: "80%", sm: "100%" }}
     >
+      {/* Render the data */}
       {jobs.data?.map((job) => (
         // Use styled stack to render the first 2 items
         <StyledStack key={job._id}>
@@ -246,9 +224,8 @@ const Main = () => {
                   textTransform: "capitalize",
                 }}
                 onClick={async () => {
-                  dispatch(addJob(job.role));
-                  // setConditions({ ...conditions, role: `${job.role}` });
                   dispatch(addRole(job.role));
+                  // Refetch the query
                   refetch();
                 }}
               >
@@ -267,8 +244,6 @@ const Main = () => {
                 }}
                 size="small"
                 onClick={() => {
-                  dispatch(addJob(job.level));
-                  // setConditions({ ...conditions, level: `${job.level}` });
                   dispatch(addLevel(job.level));
 
                   refetch();
@@ -296,13 +271,7 @@ const Main = () => {
                   size="small"
                   key={index}
                   onClick={() => {
-                    dispatch(addJob(tool));
-                    // setConditions({
-                    //   ...conditions,
-                    //   tools: conditions.tools.concat(tool),
-                    // });
                     dispatch(addTools(tool));
-
                     refetch();
                   }}
                 >
@@ -323,13 +292,7 @@ const Main = () => {
                   }}
                   size="small"
                   onClick={() => {
-                    dispatch(addJob(language));
-                    // setConditions({
-                    //   ...conditions,
-                    //   languages: conditions.languages.concat(language),
-                    // });
                     dispatch(addLanguages(language));
-
                     refetch();
                   }}
                   key={index}

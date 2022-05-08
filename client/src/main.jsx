@@ -9,6 +9,7 @@ import jobsReducer from "./features/job";
 import conditionsReducer from './features/conditions'
 const queryClient = new QueryClient();
 
+// Create store using configureStore from redux toolkit
 const store = configureStore({
   reducer: {
     jobs: jobsReducer,
@@ -19,6 +20,7 @@ const store = configureStore({
 ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
+      {/* Create provider to apply redux toolkit  */}
       <Provider store={store}>
         <App />
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
