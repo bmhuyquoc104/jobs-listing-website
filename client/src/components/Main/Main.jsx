@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useGetAllJobs } from "../../hooks/useJobQueries";
 import { useDispatch } from "react-redux";
 import { addJob } from "../../features/job";
+import {addLevel,addRole,addLanguages,addTools} from '../../features/conditions'
 import { filterJob } from "../../api/jobAPI";
 import { useQuery, useQueryClient } from "react-query";
+import {useSelector} from 'react-redux'
 import {
   Stack,
   styled,
@@ -23,16 +25,19 @@ const StyledStack = styled(Stack)`
   }
 `;
 
+
 const Main = () => {
   // Assign dispatch function from redux toolkit
   const dispatch = useDispatch();
+  
+  const conditions = useSelector(state => state.conditions);
 
-  const [conditions, setConditions] = useState({
-    level: "",
-    role: "",
-    languages: [],
-    tools: [],
-  });
+  // const [conditions, setConditions] = useState({
+  //   level: "",
+  //   role: "",
+  //   languages: [],
+  //   tools: [],
+  // });
 
   const queryClient = useQueryClient();
   queryClient.removeQueries('jobs', { inactive: true })
@@ -242,7 +247,8 @@ const Main = () => {
                 }}
                 onClick={async () => {
                   dispatch(addJob(job.role));
-                  setConditions({ ...conditions, role: `${job.role}` });
+                  // setConditions({ ...conditions, role: `${job.role}` });
+                  dispatch(addRole(job.role));
                   refetch();
                 }}
               >
@@ -262,7 +268,9 @@ const Main = () => {
                 size="small"
                 onClick={() => {
                   dispatch(addJob(job.level));
-                  setConditions({ ...conditions, level: `${job.level}` });
+                  // setConditions({ ...conditions, level: `${job.level}` });
+                  dispatch(addLevel(job.level));
+
                   refetch();
                 }}
               >
@@ -289,10 +297,12 @@ const Main = () => {
                   key={index}
                   onClick={() => {
                     dispatch(addJob(tool));
-                    setConditions({
-                      ...conditions,
-                      tools: conditions.tools.concat(tool),
-                    });
+                    // setConditions({
+                    //   ...conditions,
+                    //   tools: conditions.tools.concat(tool),
+                    // });
+                    dispatch(addTools(tool));
+
                     refetch();
                   }}
                 >
@@ -314,10 +324,12 @@ const Main = () => {
                   size="small"
                   onClick={() => {
                     dispatch(addJob(language));
-                    setConditions({
-                      ...conditions,
-                      languages: conditions.languages.concat(language),
-                    });
+                    // setConditions({
+                    //   ...conditions,
+                    //   languages: conditions.languages.concat(language),
+                    // });
+                    dispatch(addLanguages(language));
+
                     refetch();
                   }}
                   key={index}
