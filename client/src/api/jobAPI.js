@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  // baseURL: "https://job-listing-mern.herokuapp.com/",
-  baseURL: "http://localhost:8000",
+  baseURL: "https://job-listing-mern.herokuapp.com/"
 });
 
 const getAllJobs = () => api.get("jobs");
