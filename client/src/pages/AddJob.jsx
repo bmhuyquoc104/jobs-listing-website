@@ -8,9 +8,11 @@ import {
   FormGroup,
   Checkbox,
   TextField,
-  InputAdornment,
   FormControlLabel,
+  Button,
+  Autocomplete,
   Typography,
+  Input,
 } from "@mui/material";
 
 const AddJob = () => {
@@ -18,7 +20,8 @@ const AddJob = () => {
   const [level, setLevel] = useState("");
   const [languages, setLanguages] = useState("");
   const [name, setName] = useState("");
-
+  const [tool, setTool] = useState(null);
+  const tools = ["React", "Sass", "Django", "Vue", "Ruby", "RoR"];
   console.log(languages);
 
   const handleChangeLanguages = (e) => {
@@ -40,22 +43,12 @@ const AddJob = () => {
     >
       <Stack
         p={8}
+        spacing = {4}
         justifyContent="center"
         sx={{ backgroundColor: "white", borderRadius: "10px" }}
         width="60%"
       >
         <FormControl>
-          <FormLabel
-            sx={{
-              marginBottom: "1em",
-              textAlign: "center",
-              color: "primary.main",
-            }}
-            id="job-experience-group-label"
-          >
-            Add New Job
-          </FormLabel>
-
           <Stack spacing={2} direction="column">
             <TextField
               size="medium"
@@ -168,7 +161,24 @@ const AddJob = () => {
               ></FormControlLabel>
             </FormGroup>
           </Stack>
+          <Stack>
+            <Autocomplete
+              value={tool}
+              onChange={(e, newTool) => setTool(newTool)}
+              options={tools}
+              freeSolo
+              renderInput={(params) => <TextField {...params} label="Tools" />}
+            ></Autocomplete>
+          </Stack>
         </FormControl>
+        {/* Upload File */}
+        <Stack>
+          <FormControl>
+            <Input type="file"></Input>
+          </FormControl>
+        </Stack>
+
+        <Button sx = {{color: "white"}} color="primary" variant = "contained">Submit</Button>
       </Stack>
     </Stack>
   );
