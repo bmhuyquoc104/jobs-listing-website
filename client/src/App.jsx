@@ -1,21 +1,19 @@
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import FilterBar from "./components/FilterBar/FilterBar";
+
 import { theme } from "./theme";
-import { ThemeProvider, Stack } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
+import { Routes, Route } from "react-router-dom";
+import Home from './pages/Home'
+import AddJob from './pages/AddJob'
 function App() {
   return (
     <>
       {/*Wrap component by theme */}
       <ThemeProvider theme={theme}>
-        <Stack
-          alignItems="center"
-          sx={{ bgcolor: "#f0fafa", minHeight: "100vh", paddingBottom: "5em" }}
-        >
-          <Header />
-         <FilterBar/>
-          <Main />
-        </Stack>
+        
+        <Routes>
+          <Route path="/jobs-listing-website/" element={<Home />}></Route>
+          <Route path="/jobs-listing-website/addJob" element={<AddJob />}></Route>
+        </Routes>
       </ThemeProvider>
     </>
   );
