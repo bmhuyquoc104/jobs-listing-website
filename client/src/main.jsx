@@ -5,14 +5,12 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import jobsReducer from "./features/job";
 import conditionsReducer from './features/conditions'
 const queryClient = new QueryClient();
 
 // Create store using configureStore from redux toolkit
 const store = configureStore({
   reducer: {
-    jobs: jobsReducer,
     conditions:conditionsReducer,
   },
 });

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useGetAllJobs } from "../../hooks/useJobQueries";
 import { useDispatch } from "react-redux";
-import { addJob } from "../../features/job";
 import {addLevel,addRole,addLanguages,addTools} from '../../features/conditions'
 import { filterJob } from "../../api/jobAPI";
 import { useQuery, useQueryClient } from "react-query";
