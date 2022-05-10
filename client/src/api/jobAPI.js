@@ -2,6 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://job-listing-mern.herokuapp.com/"
+  
 });
 
 const getAllJobs = () => api.get("jobs");

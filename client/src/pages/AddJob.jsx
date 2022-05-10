@@ -42,13 +42,14 @@ const AddJob = () => {
       spacing={4}
     >
       <Stack
-        p={8}
+        p={6}
+        height = "80vh"
         spacing = {4}
         justifyContent="center"
-        sx={{ backgroundColor: "white", borderRadius: "10px" }}
-        width="60%"
+        sx={{ backgroundColor: "white", borderRadius: "10px",overflow:"scroll" }}
+        width="50%"
       >
-        <FormControl>
+        <FormControl sx = {{marginTop:'5em'}}>
           <Stack spacing={2} direction="column">
             <TextField
               size="medium"
