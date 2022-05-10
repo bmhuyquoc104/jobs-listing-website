@@ -14,7 +14,7 @@ import {
   Typography,
   Input,
 } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
 const AddJob = () => {
   const [value, setValue] = useState("");
   const [level, setLevel] = useState("");
@@ -22,7 +22,8 @@ const AddJob = () => {
   const [name, setName] = useState("");
   const [tool, setTool] = useState(null);
   const tools = ["React", "Sass", "Django", "Vue", "Ruby", "RoR"];
-  console.log(languages);
+
+  const navigate = useNavigate();
 
   const handleChangeLanguages = (e) => {
     const index = languages.indexOf(e.target.value);
@@ -43,13 +44,17 @@ const AddJob = () => {
     >
       <Stack
         p={6}
-        height = "80vh"
-        spacing = {4}
+        spacing={4}
         justifyContent="center"
-        sx={{ backgroundColor: "white", borderRadius: "10px",overflow:"scroll" }}
+        sx={{
+          backgroundColor: "white",
+          borderRadius: "10px",
+          overflow: "scroll",
+        }}
         width="50%"
       >
-        <FormControl sx = {{marginTop:'5em'}}>
+        <FormControl >
+          <FormLabel>Add job</FormLabel>
           <Stack spacing={2} direction="column">
             <TextField
               size="medium"
@@ -179,7 +184,12 @@ const AddJob = () => {
           </FormControl>
         </Stack>
 
-        <Button sx = {{color: "white"}} color="primary" variant = "contained">Submit</Button>
+        <Button sx={{ color: "white" }} color="primary" variant="contained">
+          Submit
+        </Button>
+        <Button variant="outlined" color="primary" onClick={() => navigate(-1)}>
+          Go back
+        </Button>
       </Stack>
     </Stack>
   );

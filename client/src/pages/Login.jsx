@@ -1,16 +1,16 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   FormControlLabel,
   Stack,
   Button,
   TextField,
-  Link,
   Typography,
   Grid,
   Checkbox,
 } from "@mui/material";
 const Login = () => {
+  const navigate = useNavigate();
   return (
     <Stack
       width="100%"
@@ -64,20 +64,29 @@ const Login = () => {
         </Button>
         <Grid container>
           <Grid item xs>
-            <Typography variant="body2" >
-              <NavLink style = {{textDecoration:"none",color:"hsl(180, 29%, 50%)"}} to = "/jobs-listing-website/">
+            <Typography variant="body2">
+              <NavLink
+                style={{ textDecoration: "none", color: "hsl(180, 29%, 50%)" }}
+                to="/jobs-listing-website/"
+              >
                 Forgot password?
               </NavLink>
             </Typography>
           </Grid>
           <Grid item>
             <Typography variant="body2">
-              <NavLink style = {{textDecoration:"none",color:"hsl(180, 29%, 50%)"}} to="signUp" >
+              <NavLink
+                style={{ textDecoration: "none", color: "hsl(180, 29%, 50%)" }}
+                to="signUp"
+              >
                 {"Don't have an account? Sign Up"}
               </NavLink>
             </Typography>
           </Grid>
         </Grid>
+        <Button onClick={() => navigate(-1)} variant="outlined" color="primary">
+          Go back
+        </Button>
       </Stack>
     </Stack>
   );
