@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import AddJob from './pages/AddJob'
 import NotFound from './pages/NotFound'
 import Login from './pages/Login'
+import Profile from './pages/Profile'
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
           <Route path="/jobs-listing-website/" element={<Home />}></Route>
           <Route path="/jobs-listing-website/addJob" element={<AddJob />}></Route>
           <Route path="/jobs-listing-website/login" element={<Login />}></Route>
+          <Route path= "/jobs-listing-website/profile" element={<Profile />}></Route>
           <Route path = "*" element = {<NotFound/>}></Route>
         </Routes>
       </ThemeProvider>

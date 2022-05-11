@@ -56,7 +56,7 @@ const Header = () => {
               color: "white",
             }}
           >
-            <NavLink to="/jobs-listing-website/addJob">Profile </NavLink>
+            <NavLink to="/jobs-listing-website/profile">Profile </NavLink>
           </StyledTypo>
           <StyledTypo
             variant="h6"
