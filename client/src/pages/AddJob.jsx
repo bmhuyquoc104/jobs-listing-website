@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useCreateJob} from '../hooks/useJobQueries'
 import {
   FormLabel,
   FormControl,
@@ -16,14 +17,42 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 const AddJob = () => {
-  const [value, setValue] = useState("");
+  const [company, setCompany] = useState("");
+  const [position, setPosition] = useState("");
+  const [contract, setContract] = useState("");
+  const [location, setLocation] = useState("");
   const [level, setLevel] = useState("");
   const [languages, setLanguages] = useState("");
-  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
   const [tool, setTool] = useState(null);
   const tools = ["React", "Sass", "Django", "Vue", "Ruby", "RoR"];
-
+  console.log(languages);
   const navigate = useNavigate();
+  const mutation = useCreateJob();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let result = {
+      id:11,
+      position: `${position}`,
+      location: `${location}`,
+      contract: `${contract}`,
+      company: `${company}`,
+      role: `${role}`,
+      level: `${level}`,
+      new: true,
+      featured: true,
+      postedAt:"1 minutes ago",
+      logo: "./images/photosnap.svg",
+      languages: languages,
+      tool: `${tool}`,
+      
+    };
+    console.log(result);
+    mutation.mutate(result);
+     navigate('/jobs-listing-website/');
+  };
+
+  
 
   const handleChangeLanguages = (e) => {
     const index = languages.indexOf(e.target.value);
@@ -46,6 +75,8 @@ const AddJob = () => {
         p={6}
         spacing={4}
         justifyContent="center"
+        component="form"
+        onSubmit={handleSubmit}
         sx={{
           backgroundColor: "white",
           borderRadius: "10px",
@@ -53,30 +84,40 @@ const AddJob = () => {
         }}
         width="50%"
       >
-        <FormControl >
+        <FormControl>
           <FormLabel>Add job</FormLabel>
           <Stack spacing={2} direction="column">
             <TextField
               size="medium"
               label="Company"
               color="primary"
+              value={company}
+              onChange={(e) => {
+                setCompany(e.target.value);
+              }}
               variant="outlined"
             />
             <TextField
               size="medium"
               label="Position"
+              value={position}
+              onChange={(e) => setPosition(e.target.value)}
               color="primary"
               variant="outlined"
             />
             <TextField
               size="medium"
               label="Contract"
+              value={contract}
+              onChange={(e) => setContract(e.target.value)}
               color="primary"
               variant="outlined"
             />
             <TextField
               size="medium"
               label="Location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
               color="primary"
               variant="outlined"
             />
@@ -106,6 +147,30 @@ const AddJob = () => {
               <FormControlLabel
                 value="Midweight"
                 label="Midweight"
+                control={<Radio color="primary" />}
+              ></FormControlLabel>
+            </RadioGroup>
+          </Stack>
+          <Stack>
+            <FormLabel>Please choose a role!</FormLabel>
+            <RadioGroup
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              sx={{ flexDirection: "row" }}
+            >
+              <FormControlLabel
+                label="Frontend"
+                value="Frontend"
+                control={<Radio color="primary" />}
+              ></FormControlLabel>
+              <FormControlLabel
+                label="Fullstack"
+                value="Fullstack"
+                control={<Radio color="primary" />}
+              ></FormControlLabel>
+              <FormControlLabel
+                label="Backend"
+                value="Backend"
                 control={<Radio color="primary" />}
               ></FormControlLabel>
             </RadioGroup>
@@ -184,7 +249,12 @@ const AddJob = () => {
           </FormControl>
         </Stack>
 
-        <Button sx={{ color: "white" }} color="primary" variant="contained">
+        <Button
+          type="submit"
+          sx={{ color: "white" }}
+          color="primary"
+          variant="contained"
+        >
           Submit
         </Button>
         <Button variant="outlined" color="primary" onClick={() => navigate(-1)}>

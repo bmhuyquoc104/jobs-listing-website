@@ -6,7 +6,9 @@ import {
   filterJob,
 } from "../api/JobAPI";
 
+import {useNavigate} from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from "react-query";
+
 
 // Hook to query all jobs by useQuery
 const useGetAllJobs = (onSuccess, onError) => {
@@ -24,6 +26,7 @@ const useGetJob = (onSuccess, onError, id) => {
     enabled: Boolean(id),
   });
 };
+
 
 // Hook to create job by useMutation
 const useCreateJob = () => {
