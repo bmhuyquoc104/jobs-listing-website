@@ -32,7 +32,6 @@ const AddJob = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let result = {
-      id:11,
       position: `${position}`,
       location: `${location}`,
       contract: `${contract}`,
