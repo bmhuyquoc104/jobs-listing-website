@@ -16,6 +16,7 @@ import {
   Input,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import UploadFile from '../components/UploadFile/UploadFile'
 const AddJob = () => {
   const [company, setCompany] = useState("");
   const [position, setPosition] = useState("");
@@ -242,10 +243,11 @@ const AddJob = () => {
           </Stack>
         </FormControl>
         {/* Upload File */}
-        <Stack>
-          <FormControl>
+        <Stack  alignItems="center" justifyContent = "center" direction= "column">
+          {/* <FormControl>
             <Input type="file"></Input>
-          </FormControl>
+          </FormControl> */}
+          <UploadFile/>
         </Stack>
 
         <Button
