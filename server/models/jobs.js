@@ -8,7 +8,6 @@ const JobModel = new mongoose.Schema({
   },
   logo: {
     type: String,
-    required: true,
   },
   new: Boolean,
   featured: Boolean,
@@ -26,7 +25,6 @@ const JobModel = new mongoose.Schema({
 });
 
 const byTools = (inputTools) => {
-  console.log(inputTools.length);
   return inputTools.length > 1
     ? { $all: inputTools }
     : inputTools.length == 0
@@ -35,7 +33,6 @@ const byTools = (inputTools) => {
 };
 
 const byLanguages = (inputLanguages) => {
-  console.log(inputLanguages.length);
 
   return inputLanguages.length > 1
     ? { $all: inputLanguages }
@@ -65,7 +62,6 @@ JobModel.statics.findByLevelRoleToolLanguage = function (
 
   // Case 2
   if (role == "" && languages == "" && level == "" && tools == "" ) {
-    console.log("huy")
     return this.find();
   }
 

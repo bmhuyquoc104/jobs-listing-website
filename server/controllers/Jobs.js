@@ -14,7 +14,22 @@ const getAllJobs = async (req, res) => {
 
 const addJob = async (req, res) => {
   try {
-    const job = req.body;
+    const url = req.protocol + '://' + req.get('host')
+    const job = new JobModel({
+      _id: new mongoose.Types.ObjectId(),
+      company: req.body.company,
+      logo: url + '/public/' + req.file.filename ,
+      new: req.body.new,
+      featured: req.body.featured,
+      position: req.body.position,
+      role: req.body.role,
+      level: req.body.level,
+      postedAt: req.body.postedAt,
+      contract: req.body.contract,
+      location: req.body.location,
+      languages: req.body.languages,
+      tools: req.body.tools,
+  });
     if (job == null) {
       res.status(404).send("Please enter a job");
     } else {
@@ -47,16 +62,12 @@ const getJob = async (req, res) => {
 const findByLevelRole = async (req, res) => {
   try {
     const params = req.body;
-    console.log("tools: "+ params.tools);
-    console.log("role:" +params.role);
-    console.log("level: " + params.level);
-    console.log("languages: " + params.languages);
+ 
     if (params == null) {
       res.status(404).send("Please enter a parameter");
     }
 
     const jobs = await JobModel.findByLevelRoleToolLanguage(params.level,params.role,params.tools,params.languages);
-    console.log(jobs.length);
     res.status(200).send(jobs);
    
   } catch (error) {

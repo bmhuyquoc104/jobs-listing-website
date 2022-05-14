@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 const UploadFile = () => {
   const [images, setImages] = useState([]);
   const [imagesUrl, setImageUrl] = useState([]);
-
+  // Re render depend on the change of images arr
   useEffect(() => {
       // Check if there are any uploaded images yet
     if (images.length < 1) {
@@ -19,6 +19,7 @@ const UploadFile = () => {
     return () => tempArr.forEach((element) => URL.revokeObjectURL(element));
   }, [images]);
 
+  // Function to handle add image
   const handleImages = (e) => {
     setImages([...e.target.files]);
   };
@@ -28,6 +29,7 @@ const UploadFile = () => {
         type="file"
         multiple
         accept="image/*"
+        name = "image"
         onChange={handleImages}
       ></input>
       {imagesUrl.map((imageUrl,index) => (
