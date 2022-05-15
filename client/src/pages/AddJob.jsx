@@ -58,7 +58,6 @@ const AddJob = () => {
   const mutation = useCreateJob();
   const handleSubmit = (e) => {
     e.preventDefault();
-    formData.append("result",result)
     let result = {
       position: `${position}`,
       location: `${location}`,
@@ -83,12 +82,14 @@ const AddJob = () => {
       new: true,
       featured: true,
       postedAt: "1 minutes ago",
-      logo: images,
       languages: [],
       tool: [],
     };
-    console.log(result2);
-    mutation.mutate(result2);
+    const formData = new FormData();
+    formData.append("image",images);
+
+    console.log(formData);
+    mutation.mutate(formData);
     navigate("/jobs-listing-website/");
   };
 
@@ -115,7 +116,6 @@ const AddJob = () => {
         justifyContent="center"
         component="form"
         onSubmit={handleSubmit}
-        enctype="multipart/form-data"
         sx={{
           backgroundColor: "white",
           borderRadius: "10px",
