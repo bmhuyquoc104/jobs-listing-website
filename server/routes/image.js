@@ -30,8 +30,11 @@ router.post('/user-profile', upload.single('profileImg'), (req, res, next) => {
     const user = new User({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
+        job: req.body.job,
+        phone:req.body.phone,
         profileImg: url + '/public/' + req.file.filename
     });
+    console.log("user:"+ user);
     user.save().then(result => {
         res.status(201).json({
             message: "User registered successfully!",
@@ -40,6 +43,7 @@ router.post('/user-profile', upload.single('profileImg'), (req, res, next) => {
                 name:result.name,
                 profileImg: result.profileImg
             }
+            
         })
     }).catch(err => {
         console.log(err),

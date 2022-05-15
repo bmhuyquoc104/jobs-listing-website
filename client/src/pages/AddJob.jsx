@@ -21,7 +21,10 @@ import UploadFile from "../components/UploadFile/UploadFile";
 const AddJob = () => {
 
   const formData = new FormData();
+  
+
   const [images, setImages] = useState([]);
+
   const [imagesUrl, setImageUrl] = useState([]);
   // Re render depend on the change of images arr
   useEffect(() => {
@@ -87,7 +90,7 @@ const AddJob = () => {
     };
     const formData = new FormData();
     formData.append("image",images);
-
+    
     console.log(formData);
     mutation.mutate(formData);
     navigate("/jobs-listing-website/");
