@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useCreateJob } from "../hooks/useJobQueries";
+import axios from 'axios';
 import {
   FormLabel,
   FormControl,
@@ -20,12 +21,11 @@ import { useNavigate } from "react-router-dom";
 import UploadFile from "../components/UploadFile/UploadFile";
 const AddJob = () => {
 
-  const formData = new FormData();
   
 
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState("");
 
-  const [imagesUrl, setImageUrl] = useState([]);
+  const [imagesUrl, setImageUrl] = useState("");
   // Re render depend on the change of images arr
   useEffect(() => {
     // Check if there are any uploaded images yet
@@ -36,15 +36,16 @@ const AddJob = () => {
     const tempArr = [];
 
     // Create object URL for each image
-    images.forEach((image) => tempArr.push(URL.createObjectURL(image)));
-    setImageUrl(tempArr);
+    // images.forEach((image) => tempArr.push(URL.createObjectURL(image)));
+    setImageUrl(URL.createObjectURL(images));
     // Remove object URL when the component is unmounted
-    return () => tempArr.forEach((element) => URL.revokeObjectURL(element));
+    // return () => tempArr.forEach((element) => URL.revokeObjectURL(element));
+    return () => URL.revokeObjectURL(images);
   }, [images]);
 
   // Function to handle add image
   const handleImages = (e) => {
-    setImages([...e.target.files]);
+    setImages(e.target.files[0]);
   };
 
   const [company, setCompany] = useState("");
@@ -57,43 +58,33 @@ const AddJob = () => {
   const [tool, setTool] = useState(null);
   const tools = ["React", "Sass", "Django", "Vue", "Ruby", "RoR"];
   console.log(languages);
+  console.log(images);
+
   const navigate = useNavigate();
   const mutation = useCreateJob();
   const handleSubmit = (e) => {
     e.preventDefault();
-    let result = {
-      position: `${position}`,
-      location: `${location}`,
-      contract: `${contract}`,
-      company: `${company}`,
-      role: `${role}`,
-      level: `${level}`,
-      new: true,
-      featured: true,
-      postedAt: "1 minutes ago",
-      logo: images,
-      languages: languages,
-      tool: `${tool}`,
-    };
-    let result2 = {
-      position: "1",
-      location: "2",
-      contract: "3",
-      company: "4",
-      role: '5',
-      level: "6",
-      new: true,
-      featured: true,
-      postedAt: "1 minutes ago",
-      languages: [],
-      tool: [],
-    };
+    
     const formData = new FormData();
     formData.append("image",images);
-    
+    formData.append("location",location);
+    formData.append("contract",contract);
+    formData.append("company",company);
+    formData.append("role",role);
+    formData.append("level",level);
+    formData.append("new",true);
+    formData.append("featured",true);
+    formData.append("postedAt","1 minutes ago");
+    formData.append("languages",languages);
+    formData.append("tool",tool);
+
+    // Display value and key in formData using entries
+    for (var value of formData.entries()) {
+      console.log(value);
+   }
     console.log(formData);
     mutation.mutate(formData);
-    navigate("/jobs-listing-website/");
+  
   };
 
   const handleChangeLanguages = (e) => {
@@ -291,16 +282,14 @@ const AddJob = () => {
           </FormControl> */}
           <input
             type="file"
-            multiple
             accept="image/*"
-            name="image"
             onChange={handleImages}
           ></input>
-          {imagesUrl.map((imageUrl, index) => (
-            <Box key={index}>
-              <img src={imageUrl} />
+          {/* {imagesUrl.map((imageUrl, index) => ( */}
+            <Box >
+              <img src={imagesUrl} />
             </Box>
-          ))}
+          {/* ))} */}
         </Stack>
 
         <Button

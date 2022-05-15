@@ -1,4 +1,5 @@
 const JobModel = require("../models/jobs");
+const mongoose = require("mongoose");
 const getAllJobs = async (req, res) => {
   try {
     const jobs = await JobModel.find();
@@ -15,29 +16,30 @@ const getAllJobs = async (req, res) => {
 const addJob = async (req, res) => {
   try {
     const url = req.protocol + '://' + req.get('host');
-    console.log("dmcs"+req.file.fileName);
-  //   const job = new JobModel({
-  //     _id: new mongoose.Types.ObjectId(),
-  //     company: req.body.company,
-  //     logo: url + '/public/' + req.file.filename ,
-  //     new: req.body.new,
-  //     featured: req.body.featured,
-  //     position: req.body.position,
-  //     role: req.body.role,
-  //     level: req.body.level,
-  //     postedAt: req.body.postedAt,
-  //     contract: req.body.contract,
-  //     location: req.body.location,
-  //     languages: req.body.languages,
-  //     tools: req.body.tools,
-  // });
-  //   if (job == null) {
-  //     res.status(404).send("Please enter a job");
-  //   } else {
-  //     const newJob = new JobModel(job);
-  //     await newJob.save();
-  //     res.status(201).send(newJob);
-  //   }
+    console.log(req.body);
+    console.log(req.file.filename);
+    const job = new JobModel({
+      _id: new mongoose.Types.ObjectId(),
+      company: req.body.company,
+      logo: url + '/public/' + req.file.filename ,
+      new: req.body.new,
+      featured: req.body.featured,
+      position: req.body.position,
+      role: req.body.role,
+      level: req.body.level,
+      postedAt: req.body.postedAt,
+      contract: req.body.contract,
+      location: req.body.location,
+      languages: req.body.languages,
+      tools: req.body.tools,
+  });
+    if (job == null) {
+      res.status(404).send("Please enter a job");
+    } else {
+      const newJob = new JobModel(job);
+      await newJob.save();
+      res.status(201).send(newJob);
+    }
   } catch (error) {
     res.status(500).send({ message: error.message });
   }

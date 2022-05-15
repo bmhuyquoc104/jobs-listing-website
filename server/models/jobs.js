@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 // Create job model
 const JobModel = new mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId,
   company: {
     type: String,
     required: true,
@@ -22,6 +23,8 @@ const JobModel = new mongoose.Schema({
   location: String,
   languages: [String],
   tools: [String],
+},{
+  collection:"jobs"
 });
 
 const byTools = (inputTools) => {
