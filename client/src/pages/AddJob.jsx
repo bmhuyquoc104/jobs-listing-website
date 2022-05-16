@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useCreateJob } from "../hooks/useJobQueries";
-import axios from 'axios';
 import {
   FormLabel,
   FormControl,
@@ -48,6 +47,7 @@ const AddJob = () => {
     setImages(e.target.files[0]);
   };
 
+  // list of states to manage form state
   const [company, setCompany] = useState("");
   const [position, setPosition] = useState("");
   const [contract, setContract] = useState("");
@@ -57,14 +57,18 @@ const AddJob = () => {
   const [role, setRole] = useState("");
   const [tool, setTool] = useState(null);
   const tools = ["React", "Sass", "Django", "Vue", "Ruby", "RoR"];
-  console.log(languages);
-  console.log(images);
-
+  
+  // declare navigate variable for routing
   const navigate = useNavigate();
+
+  // declare mutation function for mutate
   const mutation = useCreateJob();
+
+  // declare submit function when form submit
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // Use form data to pass the request to server
     const formData = new FormData();
     formData.append("image",images);
     formData.append("location",location);
@@ -76,26 +80,31 @@ const AddJob = () => {
     formData.append("featured",true);
     formData.append("postedAt","1 minutes ago");
     languages.forEach(language => formData.append("languages",language));
+    // pass array to server
     tools.forEach(tool => formData.append("tools",tool));
 
     // Display value and key in formData using entries
     for (var value of formData.entries()) {
       console.log(value);
    }
-    console.log(formData);
-    mutation.mutate(formData);
+   // navigate back to the home page after submit
     navigate('/jobs-listing-website')
   
   };
 
+  // function to add and remove languages 
   const handleChangeLanguages = (e) => {
+    // declare index variable to check if the current chosen language is in array or not
     const index = languages.indexOf(e.target.value);
+    // if not -> add to the arr
     if (index === -1) {
       setLanguages([...languages, e.target.value]);
+     // if yes -> remove from the arr 
     } else {
       setLanguages(languages.filter((language) => language !== e.target.value));
     }
   };
+  
   return (
     <Stack
       sx={{ backgroundColor: "primary.main" }}

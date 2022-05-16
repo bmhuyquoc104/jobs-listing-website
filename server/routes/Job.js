@@ -1,5 +1,4 @@
 const express = require("express");
-const app = express();
 const router = express.Router();
 const {getSingleJob} = require('../middlewares/GetSingleJobMW');
 const {upload} = require ("../middlewares/UploadImage")
