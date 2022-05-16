@@ -21,7 +21,7 @@ app.use(cors());
 
 
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 const HOSTNAME = process.env.HOSTNAME || 'localhost';
 const mongoUrl = process.env.MONGO_URL;
 mongoose.connect(mongoUrl,{ useNewUrlParser: true });
