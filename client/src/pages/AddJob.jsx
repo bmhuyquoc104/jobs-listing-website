@@ -53,7 +53,7 @@ const AddJob = () => {
   const [contract, setContract] = useState("");
   const [location, setLocation] = useState("");
   const [level, setLevel] = useState("");
-  const [languages, setLanguages] = useState("");
+  const [languages, setLanguages] = useState([]);
   const [role, setRole] = useState("");
   const [tool, setTool] = useState(null);
   const tools = ["React", "Sass", "Django", "Vue", "Ruby", "RoR"];
@@ -75,8 +75,8 @@ const AddJob = () => {
     formData.append("new",true);
     formData.append("featured",true);
     formData.append("postedAt","1 minutes ago");
-    formData.append("languages",languages);
-    formData.append("tool",tool);
+    languages.forEach(language => formData.append("languages",language));
+    tools.forEach(tool => formData.append("tools",tool));
 
     // Display value and key in formData using entries
     for (var value of formData.entries()) {
@@ -84,6 +84,7 @@ const AddJob = () => {
    }
     console.log(formData);
     mutation.mutate(formData);
+    navigate('/jobs-listing-website')
   
   };
 

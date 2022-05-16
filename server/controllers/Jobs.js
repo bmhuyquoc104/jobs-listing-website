@@ -21,7 +21,7 @@ const addJob = async (req, res) => {
     const job = new JobModel({
       _id: new mongoose.Types.ObjectId(),
       company: req.body.company,
-      logo: url + '/public/' + req.file.filename ,
+      logo: url  + "/" + req.file.filename  ,
       new: req.body.new,
       featured: req.body.featured,
       position: req.body.position,
