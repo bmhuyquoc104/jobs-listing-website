@@ -31,7 +31,7 @@ A responsive website that built to let a user find your wanted software job by f
   </div>
   <div>
     <p>Mobile website </p>
-    <img style = "object-fit:contain" src = "https://i.imgur.com/GEuZRuO.png" width="500" height="400"/>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/GEuZRuO.png" width="500" height="800"/>
   </div>
   <div>
     <p>Filter Jobs Desktop</p>
@@ -39,7 +39,7 @@ A responsive website that built to let a user find your wanted software job by f
   </div>
   <div>
     <p>Filter Jobs Mobile</p>
-    <img style = "object-fit:contain" src = "https://i.imgur.com/LEalZPm.png" width="500" height="400"/>
+    <img style = "object-fit:contain" src = "https://i.imgur.com/LEalZPm.png" width="500" height="800"/>
   </div>
 </div>
 
